@@ -3,9 +3,10 @@ import Config
 # Configure your database
 config :crypto_api, CryptoApi.Repo,
   username: "root",
-  password: "",
+  password: "qc0n457ace1",
   database: "crypto_api_dev",
   hostname: "localhost",
+  port: 9999,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 

@@ -7,9 +7,10 @@ import Config
 # Run `mix help test` for more information.
 config :crypto_api, CryptoApi.Repo,
   username: "root",
-  password: "",
+  password: "qc0n457ace1",
   database: "crypto_api_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
+  port: 9999,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
