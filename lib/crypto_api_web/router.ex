@@ -15,9 +15,9 @@ defmodule CryptoApiWeb.Router do
   end
 
   scope "/", CryptoApiWeb do
-    pipe_through :browser
+    pipe_through :api
 
-    get "/", PageController, :index
+    resources "/coins", CoinController
   end
 
   # Other scopes may use custom stacks.
