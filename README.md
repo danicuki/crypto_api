@@ -166,6 +166,8 @@ RUN mix deps.compile
 CMD ["mix", "phx.server"]
 ```
 
+`cloudbuild.yaml`
+
 <!-- livebook:{"disable_formatting":true} -->
 
 ```elixir
