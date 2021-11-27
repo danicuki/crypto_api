@@ -2,20 +2,24 @@
 
 ## Install HEX, Phoenix and create app
 
+<!-- livebook:{"disable_formatting":true} -->
+
 ```elixir
 # install hex
-mix(local.hex)
-# install phoenix
-mix(archive.install(hex(phx_new)))
+mix local.hex  
+#install phoenix
+mix archive.install hex phx_new
 
-# create new app
-mix(phx.new(crypto_api -- database(mysql)))
+#create new app
+mix phx.new crypto_api --database mysql
 ```
 
 ## config Database at dev.exs
 
+<!-- livebook:{"disable_formatting":true} -->
+
 ```elixir
-# config Database at dev.exs
+#config Database at dev.exs
 config :crypto_api, CryptoApi.Repo,
   username: "root",
   password: "sua senha",
@@ -27,6 +31,8 @@ config :crypto_api, CryptoApi.Repo,
 ```
 
 ## config Database at test.exs
+
+<!-- livebook:{"disable_formatting":true} -->
 
 ```elixir
 config :crypto_api, CryptoApi.Repo,
@@ -41,24 +47,32 @@ config :crypto_api, CryptoApi.Repo,
 
 ## Create Database and run server
 
+<!-- livebook:{"disable_formatting":true} -->
+
 ```elixir
-mix(ecto.create)
-mix(phx.server)
+mix ecto.create
+mix phx.server
 ```
 
 ## Create and seed Database
+
+<!-- livebook:{"disable_formatting":true} -->
 
 ```elixir
 mix phx.gen.json Catalog Coin coins ticker:string:unique name:string price:decimal
 ```
 
-```elixir
-# priv/repo/migrations/20211111180810_create_coins.exs
-add(:price, :decimal, precision: 20, scale: 10)
-```
+<!-- livebook:{"disable_formatting":true} -->
 
 ```elixir
-mix(ecto.migrate)
+# priv/repo/migrations/20211111180810_create_coins.exs
+add :price, :decimal, precision: 20, scale: 10
+```
+
+<!-- livebook:{"disable_formatting":true} -->
+
+```elixir
+mix ecto.migrate
 ```
 
 Change `priv/repo/seeds.exs`:
@@ -75,8 +89,10 @@ Repo.insert!(%Coin{ticker: "DOT", name: "Polkadot", price: 48.90})
 Repo.insert!(%Coin{ticker: "ADA", name: "Cardano", price: 2.20})
 ```
 
+<!-- livebook:{"disable_formatting":true} -->
+
 ```elixir
-mix(run(priv / repo / seeds.exs))
+mix run priv/repo/seeds.exs
 ```
 
 Change the `router.ex` file:
@@ -89,17 +105,23 @@ scope "/", CryptoApiWeb do
 end
 ```
 
-```elixir
-mix(test)
-```
+<!-- livebook:{"disable_formatting":true} -->
 
 ```elixir
-git(push(origin(main)))
+mix test
+```
+
+<!-- livebook:{"disable_formatting":true} -->
+
+```elixir
+git push origin main
 ```
 
 ## To production!
 
 [Create GCP Database](https://console.cloud.google.com/sql/instances/create;engine=MySQL?project=tests-322618])
+
+<!-- livebook:{"disable_formatting":true} -->
 
 ```elixir
 # run the database locally to run migrations
@@ -115,6 +137,8 @@ SECRET_KEY_BASE=1234 MIX_ENV=prod DATABASE_URL=ecto://root@127.0.0.1:3306/crypto
 ## Deploy to the GCP Cloud Run
 
 `Dockerfile`
+
+<!-- livebook:{"disable_formatting":true} -->
 
 ```elixir
 FROM bitwalker/alpine-elixir-phoenix:1.12.2
@@ -142,6 +166,8 @@ RUN mix deps.compile
 CMD ["mix", "phx.server"]
 ```
 
+<!-- livebook:{"disable_formatting":true} -->
+
 ```elixir
 steps:
   # build the container image
@@ -163,13 +189,18 @@ images:
 
 add to `prod.exs`
 
+<!-- livebook:{"disable_formatting":true} -->
+
 ```elixir
 config :crypto_api, CryptoApi.Repo,
   database: "crypto-api",
   socket: "/cloudsql/tests-322618:us-central1:crypto-api"
+
 ```
 
 ### Create secrets on GCP
+
+<!-- livebook:{"disable_formatting":true} -->
 
 ```elixir
 echo ecto://root@34.133.36.129/crypto-api? > database_secret.txt
@@ -195,8 +226,10 @@ Create a new trigger for your Phoenix app, following the on-screen prompts. On t
 
 ### Deploy
 
+<!-- livebook:{"disable_formatting":true} -->
+
 ```elixir
-git(push(origin(main)))
+git push origin main
 ```
 
 ## Refining
